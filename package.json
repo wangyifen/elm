@@ -1,0 +1,15 @@
+{
+  "name": "vue-module-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://192.168.1.184/dyWeb/vue-module-template.git"
+  },
+  "author": "ldc",
+  "license": "ISC"
+}
