@@ -1,0 +1,36 @@
+html,body{height: 100%;}
+body {margin:0; padding:0; font:12px "\5B8B\4F53",san-serif;background:#fff;}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,p{padding:0; margin:0;}
+table,td,tr,th{font-size:12px;}
+li{list-style-type:none;}
+img{vertical-align:top;border:0;}
+ol,ul {list-style:none;}
+h1,h2,h3,h4,h5,h6 {font-size:12px; font-weight:normal;}
+address,cite,code,em,th {font-weight:normal; font-style:normal;}
+.fl{float:left;}
+.fr{float:right;}
+body{font-size: 16px;font-family: "微软雅黑"}
+a {color:#333; text-decoration:none;}
+.clearfix{  /*最简方式*/content: '';display: block;clear: both;overflow: hidden;}
+.clearfix{ /*兼容 IE*/zoom: 1;}
+body{position: relative}
+#app{height: 100%;}
+.popup_wrap{position: fixed;top: 0;right: 0;left: 0;bottom: 0;background: rgba(0,0,0,.3);z-index: 20;}
+.popup{position: absolute;height: auto;overflow: hidden;left: 50%;top: 50%;transform: translate(-50%,-50%);background: #fff;border-radius: 10px;}
+#app > div{height: 100%;background-color: #eee;}
+.red{color: red;}
+.text-center{text-align: center}
+#scrollbar::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 6px; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+    }
+    #scrollbar::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 6px;
+    -webkit-box-shadow: inset 0 0 5px rgba(88, 88, 73, 0.2);
+    background: #535353;
+    }
+    #scrollbar::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(190, 133, 133, 0.2);
+    border-radius: 6px;
+    background: #EDEDED;
+    }

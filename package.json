@@ -1,15 +1,67 @@
 {
-  "name": "vue-module-template",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "vue-template",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve:dev": "vue-cli-service serve --mode dev",
+    "serve:test": "vue-cli-service serve --mode test",
+    "serve:gray": "vue-cli-service serve --mode gray",
+    "serve:master": "vue-cli-service serve --mode master",
+    "build:dev": "vue-cli-service build --mode dev",
+    "build:test": "vue-cli-service build --mode test",
+    "build:gray": "vue-cli-service build --mode gray",
+    "build:master": "vue-cli-service build --mode master",
+    "build:module-dev": "vue-cli-service build --target lib src/module.js --mode dev",
+    "build:module-test": "vue-cli-service build --target lib src/module.js --mode test",
+    "build:module-gray": "vue-cli-service build --target lib src/module.js --mode gray",
+    "build:module-master": "vue-cli-service build --target lib src/module.js --mode master",
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "http://192.168.1.184/dyWeb/vue-module-template.git"
+  "dependencies": {
+    "axios": "^0.19.2",
+    "core-js": "^3.6.4",
+    "crypto-js": "^4.0.0",
+    "diyi-ui": "^0.0.10",
+    "element-ui": "^2.13.0",
+    "js-md5": "^0.7.3",
+    "register-service-worker": "^1.6.2",
+    "vue": "^2.6.11",
+    "vue-module-loader": "^1.0.3",
+    "vue-router": "^3.1.5",
+    "vuex": "^3.1.2"
   },
-  "author": "ldc",
-  "license": "ISC"
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.2.0",
+    "@vue/cli-plugin-e2e-cypress": "~4.2.0",
+    "@vue/cli-plugin-eslint": "~4.2.0",
+    "@vue/cli-plugin-pwa": "~4.2.0",
+    "@vue/cli-plugin-router": "~4.2.0",
+    "@vue/cli-plugin-unit-jest": "~4.2.0",
+    "@vue/cli-plugin-vuex": "~4.2.0",
+    "@vue/cli-service": "~4.2.0",
+    "@vue/eslint-config-standard": "^5.1.0",
+    "@vue/test-utils": "1.0.0-beta.31",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^6.1.2",
+    "lint-staged": "^9.5.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
 }

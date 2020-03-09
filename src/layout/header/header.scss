@@ -1,0 +1,247 @@
+.clea{
+    clear: both;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    z-index: 100;
+}
+.info{
+    color: #fff;
+    font-size: 12px;
+    // overflow: hidden;
+    position: relative;
+    &:hover{
+        cursor: pointer;
+    }
+    .admin_img{
+        float: left;
+        height: 26px;
+        margin-top: 28px;
+        margin-right: 10px;
+    }
+    span{
+        display: block;
+        float: left;
+        font-size: 14px;
+        color:rgba(255,255,255,1);
+        margin-top: 36px;
+        margin-right:40px;
+    }
+    /* margin-top: 36px; */
+    /* line-height: 18px; */
+    /* margin-right: -130px; */
+}
+.nav_bars li{
+    padding: 0 20px;
+    cursor: pointer;
+    text-align: center;
+    height: 100%;
+    margin: 0 5px;
+}
+.nav_bars li img{
+    margin: 20px 0 10px 0;
+    height: 26px;
+}
+.logo .home_logo .diyi_logo {
+    display: block;
+    height: 28px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.admin {
+    margin-right: 50px;
+    height: 70px;
+    position: relative;
+    
+}
+.admin_bars {
+    width: 187px;
+    background: #fff;
+    position: absolute;
+    right: 24px;
+    top: 74px;
+    z-index: 100;
+    line-height: 44px;
+    font-size: 14px;
+    border-radius: 8px;
+    -moz-box-shadow: -2px 2px 10px #333333;
+    -webkit-box-shadow: -2px 2px 10px #333333;
+    box-shadow: -2px 2px 10px #333333;
+}
+.admin_bars:before {
+    display: block;
+    content: '';
+    border-width: 13px 11px 13px 11px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+    position: absolute;
+    right: 9px;
+    top: -26px;
+}
+.admin_bars a {
+    color: #222222;
+}
+.admin_bars a li {
+    color: #222222;
+    padding-left: 7px;
+}
+.admin_bars li:first-child {
+    border-radius: 8px 8px 0 0;
+}
+.admin_bars li em {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+}
+.admin_bars li img {
+    height: 16px;
+    vertical-align: middle;
+}
+.admin_bars li.active {
+    color: #076FB3;
+    background: #F6F6F6;
+}
+/* .admin_bars li.active li {
+    background: #F6F6F6;
+} */
+.admin > img {
+    width: 22px;
+    height: 24px;
+    margin-top: 34px;
+    cursor: pointer;
+}
+/deep/.admin_msg{
+    .el-badge__content{
+        border:none;
+    }
+    .el-badge__content.is-fixed{
+        top: 6px;
+        right: 10px;
+    }
+}
+.admin_img_msg{
+    height: 26px;
+}
+header {
+    height: 70px;
+    background:rgba(23,29,49,1);
+    min-width: 1050px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+header.mobheader{
+    min-width: 100px;
+    width: 100%;
+}
+.logo {
+    width: 268px;
+    height: 70px;
+}
+.mobheader .logo{
+    width: 180px;
+}
+.logo .home_logo {
+    width: 75px;
+    height: 70px;
+    position: relative;
+}
+.mobheader .logo .home_logo{
+    width: 50px;
+}
+.logo .logo_text {
+    font-size: 18px;
+    line-height: 70px;
+    width: 162px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.logo .moblogo_text{
+    font-size: 14px;
+    width: auto;
+    line-height:73px;
+}
+.nav_bars {
+    font-size: 15px;
+    color: #fff;
+    height: 100%;
+}
+a {
+    color: #fff;
+}
+.homefr {
+    height: 70px;
+    width: 30px;
+    margin-right: 31px;
+}
+.home_fr_logo {
+    display: block;
+    height: 70px;
+    width: 30px;
+    background: url("../../assets/icon/9.png") center no-repeat;
+    background-size: 23px;
+}
+.admin_msg_bars {
+    right: -8px;
+    width: 287px;
+    background: #fff;
+    position: absolute;
+    top: 80px;
+    z-index: 100;
+    line-height: 44px;
+    font-size: 14px;
+    border-radius: 8px;
+    -moz-box-shadow: -2px 2px 10px #333333;
+    -webkit-box-shadow: -2px 2px 10px #333333;
+    box-shadow: -2px 2px 10px #333333;
+}
+.admin_msg_bars:before {
+    display: block;
+    content: '';
+    border-width: 13px 11px 13px 11px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+    position: absolute;
+    right: 9px;
+    top: -26px;
+}
+.admin_msg{
+    margin-top: 28px;
+    cursor: pointer;
+    // margin-right: 100px;
+}
+.admin_msg i{
+    font-size: 35px;
+    color: #eee;
+}
+.msg_tital{
+    margin:10px;
+    font-weight: bold;
+    height:30px;
+    line-height: 30px;
+    border-bottom: 1px solid  #c3c3c3;
+}
+.msg_view{
+   margin:10px;
+   text-align: center;
+   cursor: pointer;
+   color:#0080c0;
+}
+.admin_msg_bars ul{
+    margin:10px;
+}
+.admin_msg_bars ul span{
+    color:#0080c0;
+    margin-left: 30px;
+    cursor: pointer;
+}
