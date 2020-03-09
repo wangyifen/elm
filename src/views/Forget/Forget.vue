@@ -73,26 +73,26 @@
 </template>
 
 <script>
-let CryptoJS = require('crypto-js')
 import SIdentify from '@/components/identify'
+const CryptoJS = require('crypto-js')
 export default {
-    name: "codetest",
+    name: 'codetest',
     data() {
-        let validatepassword = (rule, value, callback) => {
+        const validatepassword = (rule, value, callback) => {
             this.tip = false;
             if (value === '') {
                 callback(new Error('请输入密码'));
             } else {
-                if(value.length <6 ||value.length >12 ) {
+                if (value.length < 6 || value.length > 12) {
                     callback(new Error('长度只能在6—20位之间'));
-                }else if(!this.$store.bus.state.testpass.test(value)){
+                } else if (!this.$store.bus.state.testpass.test(value)) {
                     callback(new Error(this.$store.bus.state.passtip));
-                }else{
+                } else {
                     callback();
                 }
             }
         };
-        let validaterepassword = (rule, value, callback) => {
+        const validaterepassword = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请再次输入密码'));
             } else if (value !== this.ruleform.password) {
@@ -101,191 +101,190 @@ export default {
                 callback();
             }
         };
-        let validateverify = (rule, value, callback) => {
-            if(!this.verify) {
+        const validateverify = (rule, value, callback) => {
+            if (!this.verify) {
                 callback(new Error('验证码不能为空'));
-            }else if(this.verify.toLowerCase() != this.identifyCode.toLowerCase()) {
+            } else if (this.verify.toLowerCase() != this.identifyCode.toLowerCase()) {
                 callback(new Error('您输入的验证码有误，请重新输入!'));
-            }else{
+            } else {
                 callback();
             }
         };
         return {
-            identifyCodes: "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz0123456789",
-            identifyCode: "",
-            canstep:true,
-            account:'',
-            verify:'',
-            step:1,
-            mobile:'',
-            accountArr:{},
-            mobilecode:'',
-            time:60,
-            isbtn:false,
-            second:3,
-            ruleform:{
-                password:'',
-                repassword:''
+            identifyCodes: 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz0123456789',
+            identifyCode: '',
+            canstep: true,
+            account: '',
+            verify: '',
+            step: 1,
+            mobile: '',
+            accountArr: {},
+            mobilecode: '',
+            time: 60,
+            isbtn: false,
+            second: 3,
+            ruleform: {
+                password: '',
+                repassword: ''
             },
-            rules:{
-                password:[
+            rules: {
+                password: [
                     { required: true,validator: validatepassword, trigger: 'blur' }
                 ],
-                repassword:[
+                repassword: [
                     { required: true,validator: validaterepassword, trigger: 'blur' }
                 ]
             },
-            rules1:{
-                verify:[
-                    {required: true,validator: validateverify, trigger: 'blur'}
+            rules1: {
+                verify: [
+                    { required: true,validator: validateverify, trigger: 'blur' }
                 ]
             },
-            tip:false,
-            timer:null
+            tip: false,
+            timer: null
         };
     },
     mounted() {
-        this.identifyCode = "";
+        this.identifyCode = '';
         this.makeCode(this.identifyCodes, 4);
     },
     methods: {
-        showtip(){
+        showtip() {
             this.tip = true;
         },
         encryptByDES(message, key) {
-            let keyHex = CryptoJS.enc.Utf8.parse(key);
-            let encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+            const keyHex = CryptoJS.enc.Utf8.parse(key);
+            const encrypted = CryptoJS.DES.encrypt(message, keyHex, {
                 mode: CryptoJS.mode.ECB,
                 padding: CryptoJS.pad.Pkcs7
             });
             return encrypted.toString();
         },
-        nextStep3(){
-             this.$refs.ruleform.validate((valid) => {
+        nextStep3() {
+            this.$refs.ruleform.validate((valid) => {
                 if (valid) {
-                    let a = this.accountArr.AccountMobile;
-                    let postda = {
+                    const a = this.accountArr.AccountMobile;
+                    const postda = {
                         ...this.$store.bus.state.basePost,
-                        ReqTime:new Date().getTime(),
-                        UniqueId_Account:this.accountArr.AccountKey,
-                        AccountMobile:this.accountArr.AccountMobile,
-                        AccountPwd:this.encryptByDES(this.ruleform.password, a.substring(0, 8)),
-                        UpdateAccount:this.accountArr.AccountKey,
-                        AccountID:this.accountArr.AccountKey,
-                        TenantID:this.accountArr.TenantKey,
-                        AccountType:1,
-                        SuperAdminId:this.accountArr.SuperAdminId,
+                        ReqTime: new Date().getTime(),
+                        UniqueId_Account: this.accountArr.AccountKey,
+                        AccountMobile: this.accountArr.AccountMobile,
+                        AccountPwd: this.encryptByDES(this.ruleform.password, a.substring(0, 8)),
+                        UpdateAccount: this.accountArr.AccountKey,
+                        AccountID: this.accountArr.AccountKey,
+                        TenantID: this.accountArr.TenantKey,
+                        AccountType: 1,
+                        SuperAdminId: this.accountArr.SuperAdminId
 
                     };
                     this.$store.bus.commit('changesign',postda);
-                    const requre = require("querystring");
                     this.$ajax.post(`${this.$store.bus.state.url1}/ErpBasic/Account/UpdatePassword`,
                         JSON.stringify(this.$store.bus.state.postda),
-                        {headers: {"Content-Type": "application/json"}}
+                        { headers: { 'Content-Type': 'application/json' } }
                     ).then(response => {
                         if (response.status == 200) {
-                            if(response.data.Code == 200){
+                            if (response.data.Code == 200) {
                                 this.step = 4
-                                let second = setInterval(()=>{
+                                const second = setInterval(() => {
                                     this.second--;
-                                    if(this.second<=0){
+                                    if (this.second <= 0) {
                                         clearInterval(second);
                                         this.second = 3;
-                                        this.$router.push({path:'/login'});
+                                        this.$router.push({ path: '/login' });
                                     }
                                 },1000);
-                            }else{
+                            } else {
                                 this.$message.error(response.data.Message)
                             }
                         }
-                    }).catch(()=>{
+                    }).catch(() => {
 
                     })
-                }else{
+                } else {
                     return false;
                 }
             })
         },
-        nextStep2(){
-            if(!this.mobilecode) {
+        nextStep2() {
+            if (!this.mobilecode) {
                 this.$message.error('请填写短信验证码');
                 return;
-            }else if(!this.$store.bus.state.testnum.test(this.mobilecode)){
+            } else if (!this.$store.bus.state.testnum.test(this.mobilecode)) {
                 this.$message.error(this.$store.bus.state.numtip);
                 return;
             }
-            let postda = {
-                RedisName:"RetrievePassword",
-                AccountKey:this.accountArr.AccountKey,
-                TenantKey:this.accountArr.TenantKey,
-                VerificationCode:this.mobilecode,
-                AccountMobile:this.accountArr.AccountMobile
+            const postda = {
+                RedisName: 'RetrievePassword',
+                AccountKey: this.accountArr.AccountKey,
+                TenantKey: this.accountArr.TenantKey,
+                VerificationCode: this.mobilecode,
+                AccountMobile: this.accountArr.AccountMobile
             };
-            const requre = require("querystring");
+            const requre = require('querystring');
             this.$ajax.post(`${this.$store.bus.state.url}/api/Common/ExistVerificationCode`,
                 requre.stringify(postda),
-                {emulateJSON: false}
+                { emulateJSON: false }
             ).then(response => {
-                if(response.status == 200){
-                    if(response.data.Code == 200 && response.data.Data == 1){
+                if (response.status == 200) {
+                    if (response.data.Code == 200 && response.data.Data == 1) {
                         this.step = 3
-                    }else{
+                    } else {
                         this.$message.error(response.data.Message);
                     }
                 }
             })
         },
         Prestep(val) {
-            switch(val) {
-                case 1:
-                     this.$router.push({path:'/login'});
-                     break;
-                case 2:
-                    this.step = 1
-                    break; 
-                case 3:
-                    this.step = 2
-                    break; 
+            switch (val) {
+            case 1:
+                this.$router.push({ path: '/login' });
+                break;
+            case 2:
+                this.step = 1
+                break; 
+            case 3:
+                this.step = 2
+                break; 
             }
         },
-        cutDown (){
+        cutDown () {
             this.time--;
-                this.$notify({
+            this.$notify({
                 title: '提示',
-                message: ('i', { style: 'color: teal'}, '验证码已发送，请查收短信')
-                });
-                this.timer = setInterval(()=>{
+                message: ('i', { style: 'color: teal' }, '验证码已发送，请查收短信')
+            });
+            this.timer = setInterval(() => {
                 this.time--;
-                if(this.time<=0){
+                if (this.time <= 0) {
                     clearInterval(this.timer);
                     this.time = 60;
                 }
             },1000);
         },
-        getCode (){
-            let postData = {
-                Phone:this.accountArr.AccountMobile,
-                RedisName:"RetrievePassword",
-                AccountID:this.accountArr.AccountKey,
-                AccountKey:this.accountArr.AccountKey,
-                TenantKey:this.accountArr.TenantKey,
-                AppID: "9999",
-                Nonce: "abcd",
-                TerminalType: "pcweb",
-                TerminalVersion: "1.0.0",
-                ReqTime:new Date().getTime(),
-                AccountType:1
+        getCode () {
+            const postData = {
+                Phone: this.accountArr.AccountMobile,
+                RedisName: 'RetrievePassword',
+                AccountID: this.accountArr.AccountKey,
+                AccountKey: this.accountArr.AccountKey,
+                TenantKey: this.accountArr.TenantKey,
+                AppID: '9999',
+                Nonce: 'abcd',
+                TerminalType: 'pcweb',
+                TerminalVersion: '1.0.0',
+                ReqTime: new Date().getTime(),
+                AccountType: 1
             }
             this.$store.bus.commit('changesign',postData)
             this.isbtn = true
             this.$ajax.post(`${this.$store.bus.state.url1}/ErpBasic/Common/GetVerificationCode`,
                 JSON.stringify(this.$store.bus.state.postda),
-                {headers: {"Content-Type": "application/json"}}
+                { headers: { 'Content-Type': 'application/json' } }
             ).then(response => {
                 this.isbtn = false
                 if (response.data.IsSuccess == true && response.data.Code == 200) {
                     this.cutDown();
-                }else{
+                } else {
                     this.$message.error(response.data.Message);
                 }
             }).catch(() => {
@@ -293,30 +292,30 @@ export default {
             });
         },
         nextStep1() {
-            if(this.verify.toLowerCase() != this.identifyCode.toLowerCase()){
+            if (this.verify.toLowerCase() != this.identifyCode.toLowerCase()) {
                 this.$message.warning('您输入的验证码有误，请重新输入!');
                 this.refreshCode()
                 return;
             }
-           let postda = {
-                AccountNameOrMobile:this.account,
-                AppID:this.$store.bus.state.basePost.AppID
-             };
+            const postda = {
+                AccountNameOrMobile: this.account,
+                AppID: this.$store.bus.state.basePost.AppID
+            };
             this.$ajax.post(`${this.$store.bus.state.url1}/ErpBasic/Account/QueryAccountDetailByNameOrMobile`,
                 JSON.stringify(postda),
-                {headers: {"Content-Type": "application/json"}}
+                { headers: { 'Content-Type': 'application/json' } }
             ).then(response => {
                 if (response.status == 200) {
-                    if(response.data.Code == 200){
+                    if (response.data.Code == 200) {
                         this.step = 2
                         this.accountArr = response.data.Data;
-                        this.accountArr.misMobile = this.accountArr.AccountMobile.substr(0,3) + "****" + this.accountArr.AccountMobile.substr(7)
-                        this.$store.bus.state.userData = {SignToken:response.data.Data.SignToken}
-                    }else{
+                        this.accountArr.misMobile = this.accountArr.AccountMobile.substr(0,3) + '****' + this.accountArr.AccountMobile.substr(7)
+                        this.$store.bus.state.userData = { SignToken: response.data.Data.SignToken }
+                    } else {
                         this.$message.error(response.data.Message);
                         this.refreshCode();
                     }
-                }else{
+                } else {
                 }
             }).catch(() => {
 
@@ -326,17 +325,17 @@ export default {
             return Math.floor(Math.random() * (max - min) + min);
         },
         refreshCode() {
-            this.identifyCode = "";
+            this.identifyCode = '';
             this.makeCode(this.identifyCodes, 4);
         },
         makeCode(o, l) {
             for (let i = 0; i < l; i++) {
                 this.identifyCode += this.identifyCodes[
-                this.randomNum(0, this.identifyCodes.length)
+                    this.randomNum(0, this.identifyCodes.length)
                 ];
             }
         },
-        fetchData(){
+        fetchData() {
             this.verify = '';
             this.step = 1;
             this.accountArr = {};
@@ -346,35 +345,35 @@ export default {
             this.timer = null;
             this.isbtn = false;
             this.ruleform = {
-                password:'',
-                repassword:''
+                password: '',
+                repassword: ''
             };
-            this.identifyCode = "";
+            this.identifyCode = '';
             this.makeCode(this.identifyCodes, 4);
         }
     },
-    components:{
-        SIdentify:SIdentify
+    components: {
+        SIdentify: SIdentify
     },
-    watch:{
+    watch: {
         account: function (newQuestion, oldQuestion) {
-            if(this.verify && this.account) {
+            if (this.verify && this.account) {
                 this.canstep = false;
-            }else{
+            } else {
                 this.canstep = true;
             }
         },
         verify: function (newQuestion, oldQuestion) {
-            if(this.verify && this.account) {
+            if (this.verify && this.account) {
                 this.canstep = false;
-            }else{
+            } else {
                 this.canstep = true;
             }
         },
-        '$route': 'fetchData',
+        $route: 'fetchData'
     },
     created() {
-        if(this.$route.params.account) {
+        if (this.$route.params.account) {
             this.account = this.$route.params.account;
         }
     }

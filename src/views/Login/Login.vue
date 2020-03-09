@@ -97,9 +97,9 @@ export default {
                 this.$message.error('请输入账号！');
                 return
             }
-            const postData = {
-                AccountName: this.name
-            }
+            // const postData = {
+            //     AccountName: this.name
+            // }
             this.cutDown();
         },
         remember() { // 记住密码
@@ -108,7 +108,7 @@ export default {
         showpsd() { // 密码现实与否
             this.showPsd = !this.showPsd;
         },
-        tologin(){//去登陆
+        tologin() { //去登陆
             if (!this.name) {
                 this.$message.warning('账号不能为空');
                 return
@@ -119,10 +119,7 @@ export default {
             }
             if (!this.accountVerificationCode || this.accountVerificationCode.trim().length == 0) {
                 this.$message.warning('验证码不能为空');
-                return
             }
-
-
         },
         getInfo() {
            
