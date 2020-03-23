@@ -1,10 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// noinspection JSAnnotator
 const _import = require('./_import_' + process.env.NODE_ENV)
-
 const globalRoutes = [
-    // { path: '/404', component: _import('common/404'), name: '404', meta: { title: '404未找到' } },
     {
         path: '/',
         redirect: '/login'
@@ -12,9 +9,7 @@ const globalRoutes = [
     { path: '/login', component: _import('/Login/Login'), name: 'login', meta: { title: '登录' } },
     { path: '/forget', component: _import('/Forget/Forget'), name: 'forget', meta: { title: '忘记密码' } }
 ]
-
 // 主入口路由(需嵌套上左右整体布局)
-
 const mainRoutes = {
     path: '/home',
     component: _import('/Home'),

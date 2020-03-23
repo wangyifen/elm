@@ -17,22 +17,23 @@ const postda = {
     TenantKey: 0
 };
 
-export const getCookie = (state) => {
+export const getCookie = () => {
+    let userData;
     if (sessionStorage.getItem('userData')) {
-        state.userData = JSON.parse(sessionStorage.getItem('userData'))
+        userData = JSON.parse(sessionStorage.getItem('userData'))
     } else {
-        state.userData = '';
+        userData = {};
     }
-    postda.AccountID = state.userData.AccountId
-    postda.AccountType = state.userData.AccountType
-    if (state.userData) {
-        postda.BelongCompanyId = state.userData.BelongCompanyId;
-        postda.BelongStationId = state.userData.BelongStationId;
-        postda.BelongRoleId = state.userData.BelongRoleId;
-        postda.SuperAdminId = state.userData.SuperAdminId;
-        postda.TenantBelongType = state.userData.TenantBelongType;
+    postda.AccountID = userData.AccountId
+    postda.AccountType = userData.AccountType
+    if (userData) {
+        postda.BelongCompanyId = userData.BelongCompanyId;
+        postda.BelongStationId = userData.BelongStationId;
+        postda.BelongRoleId = userData.BelongRoleId;
+        postda.SuperAdminId = userData.SuperAdminId;
+        postda.TenantBelongType = userData.TenantBelongType;
     }
-    postda.TenantID = parseInt(sessionStorage.getItem('tenantid') ? sessionStorage.getItem('tenantid') : state.userData.TenantId)
+    postda.TenantID = parseInt(sessionStorage.getItem('tenantid') ? sessionStorage.getItem('tenantid') : userData.TenantId)
     return postda;
 }
 

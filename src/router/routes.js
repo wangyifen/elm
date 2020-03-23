@@ -1,8 +1,8 @@
 export default [
     {
-        path: '/about',
-        name: 'about',
+        path: '/abouts',
+        name: 'abouts',
         component: () =>
-            import(/* webpackChunkName: "about" */ '../views/About.vue')
+            import(/* webpackChunkName: "about" */ '../views/demo.vue')
     }
 ]

@@ -21,7 +21,8 @@ module.exports = {
         'spaced-comment': 0,
         'no-multi-spaces': 0,
         'no-multiple-empty-lines': 0,//末行有太多空格
-        'comma-spacing': 0//逗号后边一个空格
+        'comma-spacing': 0,//逗号后边一个空格
+        'no-undef': 0//函数是没有定义不能使用，cdn引入
     },
     overrides: [
         {

@@ -8,24 +8,33 @@ import CryptoJS from 'crypto-js'  //DES加密
 import vueModuleLoader from 'vue-module-loader'
 // import api from '@/http/index.js'
 import ElementUI from 'element-ui'
-import localModule from './module'
+// import localModule from './module'
 import 'element-ui/lib/theme-chalk/index.css';
-import getApi from '@/http/api1'
+import { getApis } from '@/http/api'
 Vue.use(ElementUI)
 Vue.use(vueModuleLoader, { store })
-Vue.prototype.$api = getApi
+
 // Vue.use(api)
 Vue.prototype.$CryptoJS = CryptoJS;
 Vue.config.productionTip = false
-
 const app = new Vue({
     router,
     store,
     render: h => h(App)
 })
-app.$moduleLoader(localModule)
-// app.$moduleLoader({
-//     'vue-template':'http://192.168.13.251:8081/vue-template.umd.min.js'
-// })
-app.$mount('#app')
-console.log(process.env)
+
+let loadModule = false;
+axios.get('/config/apis.json' + '?t=' + Date.parse(new Date())).then(res => {
+    app.$moduleLoader(res.data).then(() => {
+        loadModule = true;
+        window.$onchange()
+    })
+})
+window.$onchange = function() {
+    if (loadModule === true && window.$urlNumber === 0) {
+        getApis(window.$api)
+        Vue.prototype.$api = window.$api
+        app.$mount('#app')
+    }
+}
+

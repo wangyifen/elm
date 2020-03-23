@@ -2,7 +2,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     outputDir: 'dist',
     assetsDir: 'assets',
-    filenameHashing: false,
+    filenameHashing: true,
     lintOnSave: process.env.NODE_ENV !== 'production',
     runtimeCompiler: false,
     transpileDependencies: [],
@@ -25,7 +25,7 @@ module.exports = {
     },
     // 它支持webPack-dev-server的所有选项
     devServer: {
-        host: 'localhost',
+        host: '192.168.13.251',
         port: 8080, // 端口号
         https: false, // https:{type:Boolean}
         open: true, //配置自动启动浏览器
