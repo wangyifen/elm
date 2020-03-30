@@ -7,6 +7,7 @@ import router from './router'
 import store from './store'
 import CryptoJS from 'crypto-js'  //DES加密
 import vueModuleLoader from 'vue-module-loader'
+import '@/http/mock'
 import localModule from './module'
 
 import { Button,Message } from 'element-ui';
