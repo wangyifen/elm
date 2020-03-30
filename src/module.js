@@ -2,16 +2,14 @@
 import routes from './router/routes'
 // import storeModule from './store/store-module'
 import Router from 'vue-router'
-import ArrUrl from '@/http/config.js'
-for (const item of ArrUrl) {
-    loadJs(item,null);
-}
+import './http/api/index'
 const createRouter = () => new Router({
     mode: 'hash',
     routes: []
 })
 export default function(Vue) {
     Vue.config.productionTip = false
+    Vue.prototype.$api = window.$api
     const childrenRoute = this.$router.options.routes[3].children
     let routes2 = routes
     if (childrenRoute) {

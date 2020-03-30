@@ -2,19 +2,19 @@ import Vue from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
 import './style/reset.css'
+import './http/axios'
 import router from './router'
 import store from './store'
 import CryptoJS from 'crypto-js'  //DES加密
 import vueModuleLoader from 'vue-module-loader'
-// import api from '@/http/index.js'
-import ElementUI from 'element-ui'
-// import localModule from './module'
-import 'element-ui/lib/theme-chalk/index.css';
-import { getApis } from '@/http/api'
-Vue.use(ElementUI)
-Vue.use(vueModuleLoader, { store })
+import localModule from './module'
 
-// Vue.use(api)
+import { Button,Message } from 'element-ui';
+Vue.use(vueModuleLoader, { store })
+Vue.use(Button)
+Vue.prototype.$message = Message;
+
+
 Vue.prototype.$CryptoJS = CryptoJS;
 Vue.config.productionTip = false
 const app = new Vue({
@@ -23,18 +23,13 @@ const app = new Vue({
     render: h => h(App)
 })
 
-let loadModule = false;
-axios.get('/config/apis.json' + '?t=' + Date.parse(new Date())).then(res => {
-    app.$moduleLoader(res.data).then(() => {
-        loadModule = true;
-        window.$onchange()
-    })
-})
-window.$onchange = function() {
-    if (loadModule === true && window.$urlNumber === 0) {
-        getApis(window.$api)
-        Vue.prototype.$api = window.$api
-        app.$mount('#app')
-    }
-}
+app.$moduleLoader(localModule)
+app.$mount('#app')
+
+// axios.get('/config/apis.json' + '?t=' + Date.parse(new Date())).then(res => {
+//     app.$moduleLoader(res.data).then(()=>{
+//         app.$mount('#app')
+//     })
+// })
+Vue.prototype.$api = window.$apiList
 
