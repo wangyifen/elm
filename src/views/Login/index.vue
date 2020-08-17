@@ -71,7 +71,9 @@ export default {
 
     },
     created () {
-        console.log(this.$api,'lllllllllll')
+        this.$api.GetPreAuth().then(res => {
+            console.log(res)
+        })
     },
     methods: {
         tojump() {
@@ -122,7 +124,7 @@ export default {
             }
         },
         getInfo() {
-            this.$api.QueryAccountListData({}).then(res => {
+            this.$api.QueryAccountListData().then(res => {
                 console.log(res)
             }).catch(err => {
                 console.log(err)
@@ -130,7 +132,7 @@ export default {
         }
     },
     mounted() {
-        this.getInfo();
+        // this.getInfo();
     },
     watch: {
 

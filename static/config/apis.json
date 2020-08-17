@@ -1,4 +1,4 @@
 {
-    "vue-templates": "http://192.168.13.251:8080/vue-templates.umd.min.js",
+    "vue-templates": "http://192.168.13.215:8080/module/vue-templates.umd.min.js",
     "vue-template": "http://192.168.13.251:8082/vue-template.umd.min.js"
 }

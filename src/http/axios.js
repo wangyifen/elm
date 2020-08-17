@@ -1,14 +1,18 @@
-// import { Message } from 'element-ui';
 import { Message } from 'element-ui';
+import store from '@/store'
+import Axios from 'axios'
+var instance = new Axios.Create();
 /**
  * 请求拦截操作
  */
 let num = 0;
-axios.interceptors.request.use(config => {
-    if (num == 0) {
-        // bus.state.issearch = true;
+instance.interceptors.request.use(config => {
+    if (!config.headers.isIgnore) {
+        if (num == 0) {
+            store.state.common.isSearch = true
+        }
+        num++;
     }
-    num++;
     return config
 },error => {
     return Promise.reject(error)
@@ -16,36 +20,42 @@ axios.interceptors.request.use(config => {
 /**
  * 响应拦截操作
  */
-axios.interceptors.response.use(response => {
-    num--;
-    if (num == 0) {
-        // bus.state.issearch = false;
-    }
-    switch (response.data.Code) {
-    case 200:
-        return response
-    case 0:
-        Message.warning(response.data.Message);
-        break
-    case 403:
-        Message.warning(response.data.Message);
-        console.log('exit')
-        break
-    case 406:
-        Message.warning(response.data.Message);
-        console.log('exit')
-        break
-    case undefined:
-        return response
-    default:
-        Message.warning(response.data.Message);
-        break;
+instance.interceptors.response.use(response => {
+    console.log(response)
+    if (!response.config.headers.isIgnore) {
+        num--;
+        if (num == 0) {
+            store.state.common.isSearch = false;
+        }
+        if (response.data.Code) {
+            switch (response.data.Code) {
+            case 200:
+                return response
+            case 403:
+                Message.warning(response.data.Message);
+                store.commit('loginOut')
+                return Promise.reject(response);
+            case 406:
+                Message.warning(response.data.Message);
+                store.commit('loginOut')
+                return Promise.reject(response);
+            default:
+                Message.warning(response.data.Message);
+                return Promise.reject(response);
+            }
+        } else {
+            return Promise.resolve(response);
+        }
+    } else {
+        return Promise.resolve(response);
     }
 },error => {
-    num--;
-    Message.warning('系统繁忙，请稍后再试');
+    if (num > 0) {
+        num--;
+    }
+    // Message.warning('系统繁忙，请稍后再试,错误码：' + error.response.data.status);
     if (num == 0) {
-        // this.$store.bus.state.issearch = false;
+        store.state.common.isSearch = false
     }
     return Promise.reject(error)
 })

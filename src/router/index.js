@@ -6,15 +6,16 @@ const globalRoutes = [
         path: '/',
         redirect: '/login'
     },
-    { path: '/login', component: _import('/Login/Login'), name: 'login', meta: { title: '登录' } },
-    { path: '/forget', component: _import('/Forget/Forget'), name: 'forget', meta: { title: '忘记密码' } }
+    { path: '/login', component: _import('/Login'), name: 'login', meta: { title: '登录' } },
+    { path: '/forget', component: _import('/Forget'), name: 'forget', meta: { title: '忘记密码' } }
 ]
 // 主入口路由(需嵌套上左右整体布局)
 const mainRoutes = {
     path: '/home',
+    name: 'home',
     component: _import('/Home'),
     children: [
-        { path: '/firstpage', component: _import('/Firstpage/Firstpage'), name: 'firstpage', meta: { title: '首页', isLogin: true } }
+        { path: '/firstpage', component: _import('/Firstpage'), name: 'firstpage', meta: { title: '首页', isLogin: true } }
     ],
     beforeEnter (to, from, next) {
         next()

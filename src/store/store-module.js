@@ -3,5 +3,10 @@ export default {
     state: {
         title: 'vue-module2222'
     },
-    mutations: {}
+    mutations: {
+        getOplatform(content) {
+            console.log(content.title = 'xx')
+        }
+    }
 }
+
